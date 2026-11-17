@@ -3,23 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>40 Từ Vựng Trọng Tâm - Đề 11 (B2 - C1)</title>
+<title>Học Từ Vựng & Kiểm Tra - Đề 11 (B2 - C1)</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
   body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 100vh;
     background: #f1f5f9;
     padding: 16px;
   }
   .container {
     width: 100%;
-    max-width: 500px;
+    max-width: 520px;
     text-align: center;
   }
+
+  /* Thanh chuyển chế độ Học / Kiểm tra */
+  .tab-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: #e2e8f0;
+    padding: 4px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+  }
+  .tab-btn {
+    padding: 11px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #475569;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn.active {
+    background: #ffffff;
+    color: #4338ca;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  /* Header Bar */
   .header-bar {
     display: flex;
     justify-content: space-between;
@@ -40,17 +68,17 @@
     color: #475569;
     font-size: 15px;
   }
-  
-  /* Khung thẻ tối ưu cho Mobile & Desktop */
+
+  /* ================= FLASHCARD VIEW ================= */
   .card-box {
-    min-height: 320px;
+    min-height: 310px;
     margin-bottom: 18px;
     cursor: pointer;
     touch-action: manipulation;
   }
   .card-face {
     width: 100%;
-    min-height: 320px;
+    min-height: 310px;
     border-radius: 18px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
     display: flex;
@@ -61,7 +89,7 @@
     border: 2px solid #e2e8f0;
     background: #ffffff;
     user-select: none;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform 0.15s ease;
   }
   .card-face:active {
     transform: scale(0.985);
@@ -71,8 +99,6 @@
     background: #f8fafc;
     border-color: #cbd5e1;
   }
-  
-  /* Mặt trước */
   .badge-row {
     display: flex;
     gap: 8px;
@@ -131,13 +157,7 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    touch-action: manipulation;
   }
-  .audio-btn:hover {
-    background: #4338ca;
-  }
-  
-  /* Mặt sau */
   .back-word {
     font-size: 20px;
     font-weight: 800;
@@ -173,8 +193,6 @@
     font-style: italic;
     line-height: 1.5;
   }
-
-  /* Nút thao tác */
   .controls {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -189,405 +207,276 @@
     font-size: 15px;
     font-weight: 700;
     cursor: pointer;
-    touch-action: manipulation;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .btn:active {
-    background: #334155;
-    transform: scale(0.97);
-  }
-  .btn-flip {
-    background: #4338ca;
-  }
-  .btn-accent {
-    background: #059669;
-  }
+  .btn:active { transform: scale(0.97); }
+  .btn-flip { background: #4338ca; }
+  .btn-accent { background: #059669; }
   .hint-text {
     margin-top: 14px;
     font-size: 12.5px;
     color: #64748b;
+  }
+
+  /* ================= QUIZ VIEW ================= */
+  #quizSection {
+    display: none;
+  }
+  .quiz-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 22px 18px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+    border: 2px solid #e2e8f0;
+    margin-bottom: 16px;
+  }
+  .quiz-score-bar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #334155;
+  }
+  .score-good { color: #059669; }
+  .score-bad { color: #dc2626; }
+  
+  .quiz-prompt-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 6px;
+  }
+  .quiz-word {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 4px;
+  }
+  .quiz-ipa {
+    font-size: 14px;
+    color: #6366f1;
+    font-family: Consolas, Monaco, monospace;
+    margin-bottom: 18px;
+  }
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .option-btn {
+    width: 100%;
+    text-align: left;
+    padding: 13px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: #94a3b8;
+    background: #f1f5f9;
+  }
+  .option-btn.correct {
+    background: #dcfce7;
+    border-color: #16a34a;
+    color: #14532d;
+  }
+  .option-btn.wrong {
+    background: #fee2e2;
+    border-color: #dc2626;
+    color: #7f1d1d;
+  }
+  .option-btn:disabled {
+    cursor: default;
+  }
+
+  .quiz-feedback {
+    margin-top: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    min-height: 22px;
+  }
+  .quiz-next-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #4338ca;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: none;
+    margin-top: 12px;
+  }
+
+  /* Màn hình tổng kết điểm */
+  .result-box {
+    display: none;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 30px 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+    border: 2px solid #e2e8f0;
+  }
+  .result-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 10px;
+  }
+  .result-score {
+    font-size: 40px;
+    font-weight: 900;
+    color: #4338ca;
+    margin: 12px 0;
+  }
+  .result-desc {
+    font-size: 15px;
+    color: #475569;
+    margin-bottom: 22px;
   }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="header-bar">
-    <span class="title-tag">Đề 11 - B2-C1</span>
-    <span class="progress" id="progress">1 / 40</span>
+  <!-- Thanh chuyển đổi 2 chế độ -->
+  <div class="tab-bar">
+    <button class="tab-btn active" id="tabLearn">📖 Học Flashcard</button>
+    <button class="tab-btn" id="tabQuiz">📝 Kiểm tra trắc nghiệm</button>
   </div>
 
-  <div class="card-box" id="cardBox">
-    <!-- Mặt trước: Từ vựng + Phiên âm + Nghĩa + Nút phát âm -->
-    <div class="card-face card-front" id="cardFront">
-      <div class="badge-row">
-        <span class="badge-cefr" id="frontCefr">B2</span>
-        <span class="badge-pos" id="frontPos">Collocation</span>
-      </div>
-      <div class="word" id="frontWord">Staffing challenges</div>
-      <div class="ipa" id="frontIpa">/ˈstɑːfɪŋ ˈtʃælɪndʒɪz/</div>
-      <div class="front-meaning" id="frontMeaning">Thách thức / khủng hoảng về nhân sự, thiếu hụt lực lượng lao động.</div>
-      <button class="audio-btn" id="audioBtn">
-        🔊 Nghe phát âm
-      </button>
+  <!-- ================= PHẦN 1: HỌC FLASHCARD ================= -->
+  <div id="learnSection">
+    <div class="header-bar">
+      <span class="title-tag">Đề 11 - B2-C1</span>
+      <span class="progress" id="progress">1 / 40</span>
     </div>
 
-    <!-- Mặt sau: Chi tiết và câu ví dụ nguồn -->
-    <div class="card-face card-back" id="cardBack">
-      <div class="badge-row">
-        <span class="badge-cefr" id="backCefr">B2</span>
-        <span class="badge-pos" id="backPos">Collocation</span>
+    <div class="card-box" id="cardBox">
+      <div class="card-face card-front" id="cardFront">
+        <div class="badge-row">
+          <span class="badge-cefr" id="frontCefr">B2</span>
+          <span class="badge-pos" id="frontPos">Collocation</span>
+        </div>
+        <div class="word" id="frontWord">Staffing challenges</div>
+        <div class="ipa" id="frontIpa">/ˈstɑːfɪŋ ˈtʃælɪndʒɪz/</div>
+        <div class="front-meaning" id="frontMeaning">Thách thức / khủng hoảng về nhân sự, thiếu hụt lực lượng lao động.</div>
+        <button class="audio-btn" id="audioBtn">🔊 Nghe phát âm</button>
       </div>
-      <div class="back-word" id="backWord">Staffing challenges</div>
-      <div class="back-meaning" id="backMeaning">Thách thức / khủng hoảng về nhân sự, thiếu hụt lực lượng lao động.</div>
-      <div class="example-box">
-        <span class="example-label">Câu ví dụ trong đề:</span>
-        <div class="example" id="backExample">"In an era where the hospitality industry faces severe staffing challenges..."</div>
+
+      <div class="card-face card-back" id="cardBack">
+        <div class="badge-row">
+          <span class="badge-cefr" id="backCefr">B2</span>
+          <span class="badge-pos" id="backPos">Collocation</span>
+        </div>
+        <div class="back-word" id="backWord">Staffing challenges</div>
+        <div class="back-meaning" id="backMeaning">Thách thức / khủng hoảng về nhân sự, thiếu hụt lực lượng lao động.</div>
+        <div class="example-box">
+          <span class="example-label">Câu ví dụ trong đề:</span>
+          <div class="example" id="backExample">"In an era where the hospitality industry faces severe staffing challenges..."</div>
+        </div>
       </div>
+    </div>
+
+    <div class="controls">
+      <button class="btn" id="btnPrev">← Trước</button>
+      <button class="btn btn-flip" id="btnFlip">🔄 Lật thẻ</button>
+      <button class="btn" id="btnNext">Tiếp →</button>
+      <button class="btn btn-accent" id="btnShuffle">🔀 Trộn từ</button>
+    </div>
+
+    <div class="hint-text">
+      Chạm vào thẻ để lật xem ví dụ • Chuyển sang tab <b>Kiểm tra trắc nghiệm</b> để tự test trí nhớ.
     </div>
   </div>
 
-  <div class="controls">
-    <button class="btn" id="btnPrev">← Trước</button>
-    <button class="btn btn-flip" id="btnFlip">🔄 Lật thẻ</button>
-    <button class="btn" id="btnNext">Tiếp →</button>
-    <button class="btn btn-accent" id="btnShuffle">🔀 Trộn từ</button>
-  </div>
+  <!-- ================= PHẦN 2: KIỂM TRA TRẮC NGHIỆM ================= -->
+  <div id="quizSection">
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-score-bar">
+        <span id="quizProgress">Câu 1 / 40</span>
+        <span>Đúng: <span class="score-good" id="scoreCorrect">0</span> | Sai: <span class="score-bad" id="scoreWrong">0</span></span>
+      </div>
 
-  <div class="hint-text">
-    Chạm vào thẻ hoặc nút <b>Lật thẻ</b> để xem câu trích nguồn đề thi. Vuốt trái/phải để chuyển từ.
+      <div class="quiz-prompt-label">Chọn nghĩa tiếng Việt đúng của cụm từ:</div>
+      <div class="quiz-word" id="quizWord">Staffing challenges</div>
+      <div class="quiz-ipa" id="quizIpa">/ˈstɑːfɪŋ ˈtʃælɪndʒɪz/</div>
+
+      <div class="options-list" id="optionsList">
+        <!-- Các đáp án A, B, C, D tự động tạo ở đây -->
+      </div>
+
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <button class="quiz-next-btn" id="quizNextBtn">Câu tiếp theo →</button>
+    </div>
+
+    <div class="result-box" id="resultBox">
+      <div class="result-title">🎉 Hoàn thành bài kiểm tra!</div>
+      <div class="result-score" id="finalScore">0 / 40</div>
+      <div class="result-desc" id="finalDesc">Bạn đã hoàn thành toàn bộ 40 câu hỏi từ vựng.</div>
+      <button class="btn btn-accent" style="width: 100%;" id="btnRestartQuiz">🔄 Làm lại bài kiểm tra (Trộn câu hỏi)</button>
+    </div>
   </div>
 </div>
 
 <script>
   const vocabList = [
-    {
-      word: "Staffing challenges",
-      ipa: "/ˈstɑːfɪŋ ˈtʃælɪndʒɪz/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Thách thức / khủng hoảng về nhân sự, thiếu hụt lực lượng lao động.",
-      example: "In an era where the hospitality industry faces severe staffing challenges..."
-    },
-    {
-      word: "Staggering",
-      ipa: "/ˈstæɡərɪŋ/",
-      pos: "Adjective",
-      cefr: "C1",
-      meaning: "Đáng kinh ngạc, gây sửng sốt (thường dùng cho số liệu thống kê lớn).",
-      example: "...with a staggering 87% of hotels reporting shortages, hotel automation becomes increasingly vital."
-    },
-    {
-      word: "Play a pivotal role in",
-      ipa: "/pleɪ ə ˈpɪvətl rəʊl ɪn/",
-      pos: "Idiom / Collocation",
-      cefr: "C1",
-      meaning: "Đóng vai trò then chốt, mang tính quyết định trong việc gì.",
-      example: "Autonomous Guest Engagement Systems (AGES) will play a pivotal role in addressing these challenges."
-    },
-    {
-      word: "Dimension of efficiency",
-      ipa: "/daɪˈmenʃn əv ɪˈfɪʃnsi/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Một tầm cao mới về hiệu quả, khía cạnh / chiều kích của tính hiệu quả.",
-      example: "...they are strategic solutions that offer a new dimension of efficiency, personalization, and scalability..."
-    },
-    {
-      word: "Scalability",
-      ipa: "/ˌskeɪləˈbɪləti/",
-      pos: "Noun",
-      cefr: "C1",
-      meaning: "Khả năng mở rộng quy mô (hệ thống, dịch vụ mà không giảm hiệu suất).",
-      example: "...strategic solutions that offer a new dimension of efficiency, personalization, and scalability in guest services."
-    },
-    {
-      word: "Redefine the interaction",
-      ipa: "/ˌriːdɪˈfaɪn ði ˌɪntərˈækʃn/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Tái định hình, làm thay đổi căn bản cách thức tương tác.",
-      example: "These systems redefine the interaction between hotels and their guests..."
-    },
-    {
-      word: "Seamless",
-      ipa: "/ˈsiːmləs/",
-      pos: "Adjective",
-      cefr: "C1",
-      meaning: "Liền mạch, thông suốt, không gặp bất kỳ trở ngại hay gián đoạn nào.",
-      example: "...providing a seamless, responsive, and personalized service experience..."
-    },
-    {
-      word: "Labor-strained",
-      ipa: "/ˈleɪbə streɪnd/",
-      pos: "Compound Adj",
-      cefr: "C1",
-      meaning: "Chịu áp lực nặng nề về thiếu hụt nhân công / quá tải lao động.",
-      example: "...that is essential in today's fast-paced and labor-strained hospitality environment."
-    },
-    {
-      word: "Technology stack",
-      ipa: "/tekˈnɒlədʒi stæk/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Ngăn xếp công nghệ, tổ hợp nền tảng công nghệ tích hợp.",
-      example: "The core of AGES lies in their sophisticated technology stack."
-    },
-    {
-      word: "Effective deployment and utilization",
-      ipa: "/ɪˈfektɪv dɪˈplɔɪmənt ænd ˌjuːtəlaɪˈzeɪʃn/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Triển khai và vận dụng một cách hiệu quả, tối ưu hóa công năng.",
-      example: "For hotel executives, understanding these components is essential for effective deployment and utilization."
-    },
-    {
-      word: "Tailored recommendations",
-      ipa: "/ˈteɪləd ˌrekəmenˈdeɪʃnz/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Những đề xuất / khuyến nghị được may đo, thiết kế riêng theo sở thích.",
-      example: "By analyzing previous interactions and preferences, these systems offer tailored recommendations and responses..."
-    },
-    {
-      word: "Game-changer",
-      ipa: "/ˈɡeɪm ˌtʃeɪndʒər/",
-      pos: "Idiom / Noun",
-      cefr: "B2",
-      meaning: "Yếu tố thay đổi hoàn toàn cục diện, bước ngoặt mang tính cách mạng.",
-      example: "Additionally, their efficiency in managing inquiries is a game-changer."
-    },
-    {
-      word: "Handle a high volume of requests",
-      ipa: "/ˈhændl ə haɪ ˈvɒljuːm əv rɪˈkwests/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Xử lý một lượng lớn các yêu cầu cùng một lúc một cách trơn tru.",
-      example: "AGES can handle a high volume of requests simultaneously, reducing wait times..."
-    },
-    {
-      word: "Revolutionize various industries",
-      ipa: "/ˌrevəˈluːʃənaɪz ˈveəriəs ˈɪndəstriz/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Cách mạng hóa nhiều ngành công nghiệp, tạo bước chuyển biến căn bản.",
-      example: "...experts are predicting that AI will continue to revolutionize various industries, from healthcare to finance..."
-    },
-    {
-      word: "Enhance productivity",
-      ipa: "/ɪnˈhɑːns ˌprɒdʌkˈtɪvəti/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Nâng cao năng suất làm việc và hiệu quả hoạt động.",
-      example: "Companies carry out AI-driven projects to enhance productivity."
-    },
-    {
-      word: "In view of",
-      ipa: "/ɪn vjuː əv/",
-      pos: "Idiom / Prep. phrase",
-      cefr: "C1",
-      meaning: "Xét đến, xét vì lý do, bởi vì (thường dùng trong văn phong học thuật).",
-      example: "However, in view of ethical concerns, some governments are delaying the launch of certain AI-driven technologies."
-    },
-    {
-      word: "Embrace innovation",
-      ipa: "/ɪmˈbreɪs ˌɪnəˈveɪʃn/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Chủ động đón nhận, nhiệt tình hưởng ứng các phát kiến đổi mới.",
-      example: "Embrace Innovation: Get involved in the growing AI landscape by learning about its potential applications in your field."
-    },
-    {
-      word: "Minimize bias",
-      ipa: "/ˈmɪnɪmaɪz ˈbaɪəs/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Giảm thiểu sự thiên vị, giảm bớt định kiến (trong thuật toán / AI).",
-      example: "Advocate for responsible AI development that minimizes bias and ensures fairness across all sectors."
-    },
-    {
-      word: "Transparency and accountability",
-      ipa: "/trænˈspærənsi ænd əˌkaʊntəˈbɪləti/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Tính minh bạch và trách nhiệm giải trình rõ ràng.",
-      example: "Demand more transparency and accountability in AI systems to avoid harmful discrepancies and increase trust..."
-    },
-    {
-      word: "Harmful discrepancies",
-      ipa: "/ˈhɑːmfl dɪˈskrepənsiz/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Những sai lệch, bất cập có hại dẫn tới hệ quả tiêu cực.",
-      example: "...avoid harmful discrepancies and increase trust among users."
-    },
-    {
-      word: "Exploit vulnerabilities",
-      ipa: "/ɪkˈsplɔɪt ˌvʌlnərəˈbɪlətiz/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Khai thác / lợi dụng các lỗ hổng bảo mật.",
-      example: "These individuals use their skills to exploit vulnerabilities in computer systems, often leading to significant financial loss."
-    },
-    {
-      word: "Malicious software",
-      ipa: "/məˈlɪʃəs ˈsɒftweər/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Phần mềm độc hại (mã độc, virus, phần mềm tống tiền).",
-      example: "Virus writers create malicious software - viruses, worms, and ransomware - to infiltrate systems..."
-    },
-    {
-      word: "Infiltrate systems",
-      ipa: "/ˈɪnfɪltreɪt ˈsɪstəmz/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Xâm nhập, thâm nhập trái phép vào các hệ thống máy tính.",
-      example: "Virus writers create malicious software... to infiltrate systems, whereas hackers might break into systems..."
-    },
-    {
-      word: "Mitigate risks",
-      ipa: "/ˈmɪtɪɡeɪt rɪsks/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Giảm nhẹ, làm dịu bớt các rủi ro và tổn thất tiềm tàng.",
-      example: "Understanding their methods is crucial in mitigating risks."
-    },
-    {
-      word: "Propagate through networks",
-      ipa: "/ˈprɒpəɡeɪt θruː ˈnetwɜːks/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Lây lan, nhân bản và truyền bá nhanh chóng qua các mạng lưới.",
-      example: "...they design code that can infect devices, often propagating through networks or external devices."
-    },
-    {
-      word: "Cyber adversaries",
-      ipa: "/ˈsaɪbər ˈædvəsəriz/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Kẻ thù / đối thủ trên không gian mạng, tin tặc thù địch.",
-      example: "Ultimately, as technology evolves, so too must our strategies for defending against these cyber adversaries."
-    },
-    {
-      word: "Safeguard digital environments",
-      ipa: "/ˈseɪfɡɑːd ˈdɪdʒɪtl ɪnˈvaɪrənmənts/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Bảo vệ an toàn, giữ gìn môi trường kỹ thuật số.",
-      example: "...empower individuals and organizations to take proactive measures in safeguarding their digital environments."
-    },
-    {
-      word: "Stay on track",
-      ipa: "/steɪ ɒn træk/",
-      pos: "Idiom",
-      cefr: "B2",
-      meaning: "Đi đúng hướng, duy trì đúng lộ trình và tiến độ đề ra.",
-      example: "Many people struggle with these questions when working out alone. But now, there's an easy way to stay on track!"
-    },
-    {
-      word: "Take a new approach",
-      ipa: "/teɪk ə njuː əˈprəʊtʃ/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Áp dụng một phương pháp / hướng tiếp cận hoàn toàn mới.",
-      example: "If you prefer to take a completely new approach, try yoga or stretching exercises."
-    },
-    {
-      word: "Put in the effort",
-      ipa: "/pʊt ɪn ði ˈefət/",
-      pos: "Idiom / Collocation",
-      cefr: "B2",
-      meaning: "Bỏ công sức, nỗ lực hết mình để đạt mục tiêu.",
-      example: "Don't wait any longer—put in the effort and achieve your health goals today!"
-    },
-    {
-      word: "Interpersonal characteristics",
-      ipa: "/ˌɪntəˈpɜːsənl ˌkærəktəˈrɪstɪks/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Các đặc điểm / phẩm chất tương tác giữa người với người.",
-      example: "Soft skills are interpersonal and personal characteristics that help people interact effectively..."
-    },
-    {
-      word: "Quantified",
-      ipa: "/ˈkwɒntɪfaɪd/",
-      pos: "Verb / Adj",
-      cefr: "C1",
-      meaning: "Được định lượng, đo lường bằng số liệu cụ thể.",
-      example: "...while hard skills are specific abilities that can be measured and quantified."
-    },
-    {
-      word: "Convey ideas",
-      ipa: "/kənˈveɪ aɪˈdɪəz/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Truyền đạt, diễn đạt ý tưởng và suy nghĩ một cách rõ ràng.",
-      example: "Effective communication enables employees to convey ideas, collaborate, and build strong relationships..."
-    },
-    {
-      word: "Solid understanding",
-      ipa: "/ˈsɒlɪd ˌʌndəˈstændɪŋ/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Hiểu biết vững chắc, kiến thức nền tảng sâu rộng.",
-      example: "A solid understanding of the subject matter allows teachers to deliver accurate lessons."
-    },
-    {
-      word: "Technical proficiency",
-      ipa: "/ˈteknɪkl prəˈfɪʃnsi/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Sự thành thạo, tinh thông về mặt kỹ thuật và chuyên môn.",
-      example: "Technical proficiency in operating medical equipment ensures accurate diagnosis and treatment..."
-    },
-    {
-      word: "Complement each other",
-      ipa: "/ˈkɒmplɪment iːtʃ ˈʌðər/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Bổ sung, tương hỗ lẫn nhau để hoàn thiện hơn.",
-      example: "Both types of skills complement each other and are crucial for achieving excellence in various professions."
-    },
-    {
-      word: "Combat climate change",
-      ipa: "/ˈkɒmbæt ˈklaɪmət tʃeɪndʒ/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Đấu tranh chống lại biến đổi khí hậu toàn cầu.",
-      example: "It's important for individuals, businesses, and governments to work together to... combat climate change for future generations."
-    },
-    {
-      word: "Job displacement",
-      ipa: "/dʒɒb dɪsˈpleɪsmənt/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Sự mất việc làm / sa thải do máy móc hoặc công nghệ thay thế.",
-      example: "...though ethical considerations about job displacement and privacy are increasingly important."
-    },
-    {
-      word: "Aligned with societal values",
-      ipa: "/əˈlaɪnd wɪð səˈsaɪətl ˈvæljuːz/",
-      pos: "Collocation",
-      cefr: "C1",
-      meaning: "Phù hợp, đồng nhất với các hệ giá trị của xã hội.",
-      example: "However, the challenge remains in ensuring that AI development is aligned with societal values and regulations..."
-    },
-    {
-      word: "Make a significant difference",
-      ipa: "/meɪk ə sɪɡˈnɪfɪkənt ˈdɪfrəns/",
-      pos: "Collocation",
-      cefr: "B2",
-      meaning: "Tạo nên sự khác biệt đáng kể, đem lại chuyển biến tích cực lớn.",
-      example: "Simple actions like reducing plastic use, recycling, and conserving water can make a significant difference."
-    }
+    { word: "Staffing challenges", ipa: "/ˈstɑːfɪŋ ˈtʃælɪndʒɪz/", pos: "Collocation", cefr: "B2", meaning: "Thách thức / khủng hoảng về nhân sự, thiếu hụt lực lượng lao động.", example: "In an era where the hospitality industry faces severe staffing challenges..." },
+    { word: "Staggering", ipa: "/ˈstæɡərɪŋ/", pos: "Adjective", cefr: "C1", meaning: "Đáng kinh ngạc, gây sửng sốt (thường dùng cho số liệu thống kê lớn).", example: "...with a staggering 87% of hotels reporting shortages, hotel automation becomes increasingly vital." },
+    { word: "Play a pivotal role in", ipa: "/pleɪ ə ˈpɪvətl rəʊl ɪn/", pos: "Idiom / Collocation", cefr: "C1", meaning: "Đóng vai trò then chốt, mang tính quyết định trong việc gì.", example: "Autonomous Guest Engagement Systems (AGES) will play a pivotal role in addressing these challenges." },
+    { word: "Dimension of efficiency", ipa: "/daɪˈmenʃn əv ɪˈfɪʃnsi/", pos: "Collocation", cefr: "C1", meaning: "Một tầm cao mới về hiệu quả, khía cạnh / chiều kích của tính hiệu quả.", example: "...they are strategic solutions that offer a new dimension of efficiency, personalization, and scalability..." },
+    { word: "Scalability", ipa: "/ˌskeɪləˈbɪləti/", pos: "Noun", cefr: "C1", meaning: "Khả năng mở rộng quy mô (hệ thống, dịch vụ mà không giảm hiệu suất).", example: "...strategic solutions that offer a new dimension of efficiency, personalization, and scalability in guest services." },
+    { word: "Redefine the interaction", ipa: "/ˌriːdɪˈfaɪn ði ˌɪntərˈækʃn/", pos: "Collocation", cefr: "C1", meaning: "Tái định hình, làm thay đổi căn bản cách thức tương tác.", example: "These systems redefine the interaction between hotels and their guests..." },
+    { word: "Seamless", ipa: "/ˈsiːmləs/", pos: "Adjective", cefr: "C1", meaning: "Liền mạch, thông suốt, không gặp bất kỳ trở ngại hay gián đoạn nào.", example: "...providing a seamless, responsive, and personalized service experience..." },
+    { word: "Labor-strained", ipa: "/ˈleɪbə streɪnd/", pos: "Compound Adj", cefr: "C1", meaning: "Chịu áp lực nặng nề về thiếu hụt nhân công / quá tải lao động.", example: "...that is essential in today's fast-paced and labor-strained hospitality environment." },
+    { word: "Technology stack", ipa: "/tekˈnɒlədʒi stæk/", pos: "Collocation", cefr: "C1", meaning: "Ngăn xếp công nghệ, tổ hợp nền tảng công nghệ tích hợp.", example: "The core of AGES lies in their sophisticated technology stack." },
+    { word: "Effective deployment and utilization", ipa: "/ɪˈfektɪv dɪˈplɔɪmənt ænd ˌjuːtəlaɪˈzeɪʃn/", pos: "Collocation", cefr: "C1", meaning: "Triển khai và vận dụng một cách hiệu quả, tối ưu hóa công năng.", example: "For hotel executives, understanding these components is essential for effective deployment and utilization." },
+    { word: "Tailored recommendations", ipa: "/ˈteɪləd ˌrekəmenˈdeɪʃnz/", pos: "Collocation", cefr: "B2", meaning: "Những đề xuất / khuyến nghị được may đo, thiết kế riêng theo sở thích.", example: "By analyzing previous interactions and preferences, these systems offer tailored recommendations and responses..." },
+    { word: "Game-changer", ipa: "/ˈɡeɪm ˌtʃeɪndʒər/", pos: "Idiom / Noun", cefr: "B2", meaning: "Yếu tố thay đổi hoàn toàn cục diện, bước ngoặt mang tính cách mạng.", example: "Additionally, their efficiency in managing inquiries is a game-changer." },
+    { word: "Handle a high volume of requests", ipa: "/ˈhændl ə haɪ ˈvɒljuːm əv rɪˈkwests/", pos: "Collocation", cefr: "B2", meaning: "Xử lý một lượng lớn các yêu cầu cùng một lúc một cách trơn tru.", example: "AGES can handle a high volume of requests simultaneously, reducing wait times..." },
+    { word: "Revolutionize various industries", ipa: "/ˌrevəˈluːʃənaɪz ˈveəriəs ˈɪndəstriz/", pos: "Collocation", cefr: "B2", meaning: "Cách mạng hóa nhiều ngành công nghiệp, tạo bước chuyển biến căn bản.", example: "...experts are predicting that AI will continue to revolutionize various industries, from healthcare to finance..." },
+    { word: "Enhance productivity", ipa: "/ɪnˈhɑːns ˌprɒdʌkˈtɪvəti/", pos: "Collocation", cefr: "B2", meaning: "Nâng cao năng suất làm việc và hiệu quả hoạt động.", example: "Companies carry out AI-driven projects to enhance productivity." },
+    { word: "In view of", ipa: "/ɪn vjuː əv/", pos: "Idiom / Prep. phrase", cefr: "C1", meaning: "Xét đến, xét vì lý do, bởi vì (thường dùng trong văn phong học thuật).", example: "However, in view of ethical concerns, some governments are delaying the launch of certain AI-driven technologies." },
+    { word: "Embrace innovation", ipa: "/ɪmˈbreɪs ˌɪnəˈveɪʃn/", pos: "Collocation", cefr: "C1", meaning: "Chủ động đón nhận, nhiệt tình hưởng ứng các phát kiến đổi mới.", example: "Embrace Innovation: Get involved in the growing AI landscape by learning about its potential applications in your field." },
+    { word: "Minimize bias", ipa: "/ˈmɪnɪmaɪz ˈbaɪəs/", pos: "Collocation", cefr: "C1", meaning: "Giảm thiểu sự thiên vị, giảm bớt định kiến (trong thuật toán / AI).", example: "Advocate for responsible AI development that minimizes bias and ensures fairness across all sectors." },
+    { word: "Transparency and accountability", ipa: "/trænˈspærənsi ænd əˌkaʊntəˈbɪləti/", pos: "Collocation", cefr: "C1", meaning: "Tính minh bạch và trách nhiệm giải trình rõ ràng.", example: "Demand more transparency and accountability in AI systems to avoid harmful discrepancies and increase trust..." },
+    { word: "Harmful discrepancies", ipa: "/ˈhɑːmfl dɪˈskrepənsiz/", pos: "Collocation", cefr: "C1", meaning: "Những sai lệch, bất cập có hại dẫn tới hệ quả tiêu cực.", example: "...avoid harmful discrepancies and increase trust among users." },
+    { word: "Exploit vulnerabilities", ipa: "/ɪkˈsplɔɪt ˌvʌlnərəˈbɪlətiz/", pos: "Collocation", cefr: "C1", meaning: "Khai thác / lợi dụng các lỗ hổng bảo mật.", example: "These individuals use their skills to exploit vulnerabilities in computer systems, often leading to significant financial loss." },
+    { word: "Malicious software", ipa: "/məˈlɪʃəs ˈsɒftweər/", pos: "Collocation", cefr: "B2", meaning: "Phần mềm độc hại (mã độc, virus, phần mềm tống tiền).", example: "Virus writers create malicious software - viruses, worms, and ransomware - to infiltrate systems..." },
+    { word: "Infiltrate systems", ipa: "/ˈɪnfɪltreɪt ˈsɪstəmz/", pos: "Collocation", cefr: "C1", meaning: "Xâm nhập, thâm nhập trái phép vào các hệ thống máy tính.", example: "Virus writers create malicious software... to infiltrate systems, whereas hackers might break into systems..." },
+    { word: "Mitigate risks", ipa: "/ˈmɪtɪɡeɪt rɪsks/", pos: "Collocation", cefr: "C1", meaning: "Giảm nhẹ, làm dịu bớt các rủi ro và tổn thất tiềm tàng.", example: "Understanding their methods is crucial in mitigating risks." },
+    { word: "Propagate through networks", ipa: "/ˈprɒpəɡeɪt θruː ˈnetwɜːks/", pos: "Collocation", cefr: "C1", meaning: "Lây lan, nhân bản và truyền bá nhanh chóng qua các mạng lưới.", example: "...they design code that can infect devices, often propagating through networks or external devices." },
+    { word: "Cyber adversaries", ipa: "/ˈsaɪbər ˈædvəsəriz/", pos: "Collocation", cefr: "C1", meaning: "Kẻ thù / đối thủ trên không gian mạng, tin tặc thù địch.", example: "Ultimately, as technology evolves, so too must our strategies for defending against these cyber adversaries." },
+    { word: "Safeguard digital environments", ipa: "/ˈseɪfɡɑːd ˈdɪdʒɪtl ɪnˈvaɪrənmənts/", pos: "Collocation", cefr: "C1", meaning: "Bảo vệ an toàn, giữ gìn môi trường kỹ thuật số.", example: "...empower individuals and organizations to take proactive measures in safeguarding their digital environments." },
+    { word: "Stay on track", ipa: "/steɪ ɒn træk/", pos: "Idiom", cefr: "B2", meaning: "Đi đúng hướng, duy trì đúng lộ trình và tiến độ đề ra.", example: "Many people struggle with these questions when working out alone. But now, there's an easy way to stay on track!" },
+    { word: "Take a new approach", ipa: "/teɪk ə njuː əˈprəʊtʃ/", pos: "Collocation", cefr: "B2", meaning: "Áp dụng một phương pháp / hướng tiếp cận hoàn toàn mới.", example: "If you prefer to take a completely new approach, try yoga or stretching exercises." },
+    { word: "Put in the effort", ipa: "/pʊt ɪn ði ˈefət/", pos: "Idiom / Collocation", cefr: "B2", meaning: "Bỏ công sức, nỗ lực hết mình để đạt mục tiêu.", example: "Don't wait any longer—put in the effort and achieve your health goals today!" },
+    { word: "Interpersonal characteristics", ipa: "/ˌɪntəˈpɜːsənl ˌkærəktəˈrɪstɪks/", pos: "Collocation", cefr: "C1", meaning: "Các đặc điểm / phẩm chất tương tác giữa người với người.", example: "Soft skills are interpersonal and personal characteristics that help people interact effectively..." },
+    { word: "Quantified", ipa: "/ˈkwɒntɪfaɪd/", pos: "Verb / Adj", cefr: "C1", meaning: "Được định lượng, đo lường bằng số liệu cụ thể.", example: "...while hard skills are specific abilities that can be measured and quantified." },
+    { word: "Convey ideas", ipa: "/kənˈveɪ aɪˈdɪəz/", pos: "Collocation", cefr: "B2", meaning: "Truyền đạt, diễn đạt ý tưởng và suy nghĩ một cách rõ ràng.", example: "Effective communication enables employees to convey ideas, collaborate, and build strong relationships..." },
+    { word: "Solid understanding", ipa: "/ˈsɒlɪd ˌʌndəˈstændɪŋ/", pos: "Collocation", cefr: "B2", meaning: "Hiểu biết vững chắc, kiến thức nền tảng sâu rộng.", example: "A solid understanding of the subject matter allows teachers to deliver accurate lessons." },
+    { word: "Technical proficiency", ipa: "/ˈteknɪkl prəˈfɪʃnsi/", pos: "Collocation", cefr: "C1", meaning: "Sự thành thạo, tinh thông về mặt kỹ thuật và chuyên môn.", example: "Technical proficiency in operating medical equipment ensures accurate diagnosis and treatment..." },
+    { word: "Complement each other", ipa: "/ˈkɒmplɪment iːtʃ ˈʌðər/", pos: "Collocation", cefr: "B2", meaning: "Bổ sung, tương hỗ lẫn nhau để hoàn thiện hơn.", example: "Both types of skills complement each other and are crucial for achieving excellence in various professions." },
+    { word: "Combat climate change", ipa: "/ˈkɒmbæt ˈklaɪmət tʃeɪndʒ/", pos: "Collocation", cefr: "B2", meaning: "Đấu tranh chống lại biến đổi khí hậu toàn cầu.", example: "It's important for individuals, businesses, and governments to work together to... combat climate change for future generations." },
+    { word: "Job displacement", ipa: "/dʒɒb dɪsˈpleɪsmənt/", pos: "Collocation", cefr: "C1", meaning: "Sự mất việc làm / sa thải do máy móc hoặc công nghệ thay thế.", example: "...though ethical considerations about job displacement and privacy are increasingly important." },
+    { word: "Aligned with societal values", ipa: "/əˈlaɪnd wɪð səˈsaɪətl ˈvæljuːz/", pos: "Collocation", cefr: "C1", meaning: "Phù hợp, đồng nhất với các hệ giá trị của xã hội.", example: "However, the challenge remains in ensuring that AI development is aligned with societal values and regulations..." },
+    { word: "Make a significant difference", ipa: "/meɪk ə sɪɡˈnɪfɪkənt ˈdɪfrəns/", pos: "Collocation", cefr: "B2", meaning: "Tạo nên sự khác biệt đáng kể, đem lại chuyển biến tích cực lớn.", example: "Simple actions like reducing plastic use, recycling, and conserving water can make a significant difference." }
   ];
 
+  // ================= LOGIC FLASHCARD =================
   let currentIndex = 0;
   let isFlipped = false;
-
   const cardFront = document.getElementById("cardFront");
   const cardBack = document.getElementById("cardBack");
 
@@ -597,15 +486,12 @@
     cardBack.style.display = "none";
 
     const item = vocabList[currentIndex];
-    
-    // Mặt trước
     document.getElementById("frontCefr").innerText = item.cefr;
     document.getElementById("frontPos").innerText = item.pos;
     document.getElementById("frontWord").innerText = item.word;
     document.getElementById("frontIpa").innerText = item.ipa;
     document.getElementById("frontMeaning").innerText = item.meaning;
 
-    // Mặt sau
     document.getElementById("backCefr").innerText = item.cefr;
     document.getElementById("backPos").innerText = item.pos;
     document.getElementById("backWord").innerText = item.word;
@@ -617,27 +503,16 @@
 
   function toggleFlip() {
     isFlipped = !isFlipped;
-    if (isFlipped) {
-      cardFront.style.display = "none";
-      cardBack.style.display = "flex";
-    } else {
-      cardFront.style.display = "flex";
-      cardBack.style.display = "none";
-    }
+    cardFront.style.display = isFlipped ? "none" : "flex";
+    cardBack.style.display = isFlipped ? "flex" : "none";
   }
 
   function nextCard() {
-    if (currentIndex < vocabList.length - 1) {
-      currentIndex++;
-      renderCard();
-    }
+    if (currentIndex < vocabList.length - 1) { currentIndex++; renderCard(); }
   }
 
   function prevCard() {
-    if (currentIndex > 0) {
-      currentIndex--;
-      renderCard();
-    }
+    if (currentIndex > 0) { currentIndex--; renderCard(); }
   }
 
   function shuffleCards() {
@@ -646,52 +521,155 @@
     renderCard();
   }
 
-  function speakWord() {
+  function speakWord(textToSpeak) {
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(vocabList[currentIndex].word);
+      const utterance = new SpeechSynthesisUtterance(textToSpeak || vocabList[currentIndex].word);
       utterance.lang = 'en-US';
       window.speechSynthesis.speak(utterance);
     }
   }
 
-  // Gắn sự kiện cảm ứng
-  document.getElementById("cardBox").addEventListener("click", function(e) {
+  document.getElementById("cardBox").addEventListener("click", (e) => {
     if (e.target.closest("#audioBtn")) return;
     toggleFlip();
   });
-
   document.getElementById("btnFlip").addEventListener("click", toggleFlip);
   document.getElementById("btnNext").addEventListener("click", nextCard);
   document.getElementById("btnPrev").addEventListener("click", prevCard);
   document.getElementById("btnShuffle").addEventListener("click", shuffleCards);
-  document.getElementById("audioBtn").addEventListener("click", function(e) {
+  document.getElementById("audioBtn").addEventListener("click", (e) => {
     e.stopPropagation();
     speakWord();
   });
 
-  // Hỗ trợ thao tác vuốt màn hình (Swipe) trên điện thoại
+  // Vuốt màn hình trên Mobile
   let touchStartX = 0;
-  let touchEndX = 0;
-
-  document.getElementById("cardBox").addEventListener("touchstart", function(e) {
-    touchStartX = e.changedTouches[0].screenX;
+  document.getElementById("cardBox").addEventListener("touchstart", e => touchStartX = e.changedTouches[0].screenX, {passive: true});
+  document.getElementById("cardBox").addEventListener("touchend", e => {
+    const diff = e.changedTouches[0].screenX - touchStartX;
+    if (diff < -50) nextCard();
+    else if (diff > 50) prevCard();
   }, {passive: true});
 
-  document.getElementById("cardBox").addEventListener("touchend", function(e) {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }, {passive: true});
+  // ================= LOGIC CHUYỂN TAB =================
+  const tabLearn = document.getElementById("tabLearn");
+  const tabQuiz = document.getElementById("tabQuiz");
+  const learnSection = document.getElementById("learnSection");
+  const quizSection = document.getElementById("quizSection");
 
-  function handleSwipe() {
-    const diff = touchEndX - touchStartX;
-    if (diff < -50) {
-      nextCard();
-    } else if (diff > 50) {
-      prevCard();
-    }
+  tabLearn.addEventListener("click", () => {
+    tabLearn.classList.add("active");
+    tabQuiz.classList.remove("active");
+    learnSection.style.display = "block";
+    quizSection.style.display = "none";
+  });
+
+  tabQuiz.addEventListener("click", () => {
+    tabQuiz.classList.add("active");
+    tabLearn.classList.remove("active");
+    learnSection.style.display = "none";
+    quizSection.style.display = "block";
+    startQuiz();
+  });
+
+  // ================= LOGIC KIỂM TRA TRẮC NGHIỆM =================
+  let quizQuestions = [];
+  let quizIndex = 0;
+  let correctCount = 0;
+  let wrongCount = 0;
+  let answered = false;
+
+  function startQuiz() {
+    quizQuestions = [...vocabList].sort(() => Math.random() - 0.5);
+    quizIndex = 0;
+    correctCount = 0;
+    wrongCount = 0;
+    document.getElementById("quizCard").style.display = "block";
+    document.getElementById("resultBox").style.display = "none";
+    renderQuizQuestion();
   }
 
+  function renderQuizQuestion() {
+    answered = false;
+    const currentItem = quizQuestions[quizIndex];
+    document.getElementById("quizProgress").innerText = `Câu ${quizIndex + 1} / ${quizQuestions.length}`;
+    document.getElementById("scoreCorrect").innerText = correctCount;
+    document.getElementById("scoreWrong").innerText = wrongCount;
+    document.getElementById("quizWord").innerText = currentItem.word;
+    document.getElementById("quizIpa").innerText = currentItem.ipa;
+    document.getElementById("quizFeedback").innerText = "";
+    document.getElementById("quizNextBtn").style.display = "none";
+
+    // Lấy 3 đáp án nhiễu ngẫu nhiên khác nghĩa hiện tại
+    const distractors = vocabList
+      .filter(item => item.word !== currentItem.word)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3)
+      .map(item => item.meaning);
+
+    const allOptions = [currentItem.meaning, ...distractors].sort(() => Math.random() - 0.5);
+    const optionsList = document.getElementById("optionsList");
+    optionsList.innerHTML = "";
+
+    const labels = ["A", "B", "C", "D"];
+    allOptions.forEach((optText, idx) => {
+      const btn = document.createElement("button");
+      btn.className = "option-btn";
+      btn.innerText = `${labels[idx]}. ${optText}`;
+      btn.addEventListener("click", () => handleAnswer(btn, optText === currentItem.meaning, currentItem.meaning));
+      optionsList.appendChild(btn);
+    });
+  }
+
+  function handleAnswer(selectedBtn, isCorrect, correctMeaning) {
+    if (answered) return;
+    answered = true;
+
+    const allBtns = document.querySelectorAll(".option-btn");
+    allBtns.forEach(b => {
+      b.disabled = true;
+      if (b.innerText.includes(correctMeaning)) {
+        b.classList.add("correct");
+      }
+    });
+
+    const feedback = document.getElementById("quizFeedback");
+    if (isCorrect) {
+      correctCount++;
+      document.getElementById("scoreCorrect").innerText = correctCount;
+      feedback.style.color = "#059669";
+      feedback.innerText = "✅ Chính xác!";
+      speakWord(quizQuestions[quizIndex].word);
+    } else {
+      wrongCount++;
+      selectedBtn.classList.add("wrong");
+      document.getElementById("scoreWrong").innerText = wrongCount;
+      feedback.style.color = "#dc2626";
+      feedback.innerText = "❌ Chưa đúng rồi! Hãy xem đáp án màu xanh.";
+    }
+
+    const nextBtn = document.getElementById("quizNextBtn");
+    nextBtn.innerText = quizIndex < quizQuestions.length - 1 ? "Câu tiếp theo →" : "Xem kết quả bài kiểm tra";
+    nextBtn.style.display = "block";
+  }
+
+  document.getElementById("quizNextBtn").addEventListener("click", () => {
+    if (quizIndex < quizQuestions.length - 1) {
+      quizIndex++;
+      renderQuizQuestion();
+    } else {
+      document.getElementById("quizCard").style.display = "none";
+      document.getElementById("resultBox").style.display = "block";
+      document.getElementById("finalScore").innerText = `${correctCount} / ${quizQuestions.length}`;
+      const percent = Math.round((correctCount / quizQuestions.length) * 100);
+      document.getElementById("finalDesc").innerText = `Bạn trả lời đúng ${percent}% số câu hỏi từ vựng Đề 11.`;
+    }
+  });
+
+  document.getElementById("btnRestartQuiz").addEventListener("click", startQuiz);
+
+  // Khởi tạo ban đầu
   renderCard();
 </script>
 
